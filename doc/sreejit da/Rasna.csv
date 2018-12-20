@@ -1,0 +1,176 @@
+Item,Price
+Veg Main Course  ,
+Veg Thali ,Rs.55
+Special Veg Thali ,Rs.90
+Veg Fried Rice (Indian) ,Rs.105
+Veg Fried Rice (Chinese) ,Rs.95
+Kashmiri Aloo Dum ,Rs.85
+Aloo Dum ,Rs.65
+Sahi Aloo Dum ,Rs.95
+Mixed Vegetable ,Rs.85
+Veg Jhal Frezy ,Rs.95
+Chana Masala ,Rs.65
+Plain Tarka ,Rs.50
+Fry Tadka ,Rs.50
+Plain Egg Tadka ,Rs.60
+Fry Egg Tadka ,Rs.60
+Plain Butter Tadka ,Rs.60
+Fry Butter Tadka ,Rs.60
+Egg Main Course  ,
+Egg Thali (Ordinary) ,Rs.75
+Egg Thali (Special) ,Rs.110
+Egg Fried Rice ,Rs.115
+Egg Curry (1 pc) ,Rs.20
+Omelette ,Rs.17
+Fish Main Course  ,
+Fish Thali (Ordinary) ,Rs.100
+Fish Thali (Special) ,Rs.135
+Rui Thali (Ordinary) ,Rs.110
+Rui Thali (Special) ,Rs.145
+Pomfret Thali (Ordinary) ,Rs.195
+Pomfret Thali (Special) ,Rs.230
+Vetki Masala Thali (Ordinary) ,Rs.205
+Vetki Masala Thali (Special) ,Rs.240
+Chilli Fish (6 pc) ,Rs.145
+Fish Manchurian (6 pc) ,Rs.155
+Charapona (Desi) ,Rs.45
+Fish Curry (Rui) (1 pc) ,Rs.55
+Pomfret Kasa (2 pc) ,Rs.135
+Pomfret Masala (2 pc) ,Rs.145
+Vetki Masala (2 pc) ,Rs.150
+Vetki Jhal Frezy ,Rs.155
+Chicken Main Course  ,
+Chicken Thali (Ordinary) ,Rs.140
+Chicken Thali (Special) ,Rs.175
+Chicken Do Pyaza Thali (Ordinary) ,Rs.150
+Chicken Do Pyaza Thali (Special) ,Rs.185
+Chicken Masala Thali (Ordinary) ,Rs.170
+Chicken Masala Thali (Special) ,Rs.205
+Chicken Fried Rice (F) ,Rs.125
+Egg Chicken Fried Rice ,Rs.135
+Raasna Chilli Chicken With Bone (6 pc) ,Rs.95
+Raasna Chilli Chicken (Boneless) (6 pc) ,Rs.125
+Chilli Chicken Classic With Bone (6 pc) ,Rs.105
+Chilli Chicken Classic (Boneless) (6 pc) ,Rs.135
+Garlic Chicken (Boneless) (6 pc) ,Rs.135
+Ginger Chicken (Boneless) (6 pc) ,Rs.135
+Lemon Chicken (6 pc) ,Rs.135
+Chicken Manchurian (Boneless) (6 pc),Rs.140
+Chicken Chana Masala ,Rs.105
+Chicken Kasa (2 pc) ,Rs.85
+Chicken Do Pyaza (2 pc) ,Rs.95
+Chicken Masala (2 pc) ,Rs.115
+Chicken Jalfrezi (2 pc) ,Rs.105
+Chicken Bharta (Boneless) ,Rs.125
+Chicken Butter Masala (2 pc) ,Rs.130
+Kadai Murg (2 pc) ,Rs.130
+Mutton Main Course  ,
+Mutton Thali (Ordinary) ,Rs.220
+Mutton Thali (Special) ,Rs.255
+Mutton Do Pyaza Thali (Ordinary) ,Rs.230
+Mutton Do Pyaza Thali (Special) ,Rs.265
+Mutton Masala Thali (Ordinary) ,Rs.240
+Mutton Masala Thali (Special) ,Rs.275
+Mutton Kasa (4 pc) ,Rs.165
+Mutton Do Pyaza (4 pc) ,Rs.175
+Mutton Masala (4 pc) ,Rs.185
+Mutton Jalfrezi (4 pc) ,Rs.175
+Mixed Main Course  ,
+Mixed Fried Rice ,Rs.165
+Non-Veg Main Course  ,
+Schezwan Fried Rice (Non Veg) ,Rs.165
+Veg Starter  ,
+Tomato Soup ,Rs.65
+Veg Soup ,Rs.65
+Veg Clear Soup ,Rs.65
+Veg Pakora (8 pc) ,Rs.60
+Onion Pakora (8 pc) ,Rs.60
+Mixed Veg Pakora (8 pc) ,Rs.65
+Chicken Starter  ,
+Chicken Soup ,Rs.85
+Chicken Clear Soup With egg ,Rs.95
+Chicken Hot & Sour Soup ,Rs.105
+Mushroom Soup ,Rs.80
+Manchow Soup (Non veg) ,Rs.115
+Chicken Pakora With Bone ,Rs.110
+Chicken Pakora (Boneless) (8 pc) ,Rs.130
+Crispy Chilli Chicken ,Rs.145
+Chilli Chicken Dry with Bone (6 pc) ,Rs.95
+Chilli Chicken Dry (Boneless) (6 pc) ,Rs.125
+Chicken Drum Stick (5 pc) ,Rs.155
+Chicken Lollipop (5 pc) ,Rs.145
+Chicken 65 (6 pc) ,Rs.145
+Chicken Tandoor (H) ,Rs.160
+Chicken Tandoor (F) ,Rs.280
+Chicken Kalmi Kebab (2 pc) ,Rs.155
+Chicken Tikka Kebab (6 pc) ,Rs.155
+Chicken Reshmi Kebab (6 pc) ,Rs.175
+Paneer Main Course  ,
+Paneer Chana Masala ,Rs.100
+Paneer Butter Masala ,Rs.125
+Paneer Do Pyaza ,Rs.125
+Sahi Paneer ,Rs.130
+Kadai Paneer ,Rs.135
+Paneer Jalfrezi ,Rs.140
+Paneer Chilli Classic ,Rs.115
+Paneer Manchurian ,Rs.135
+Paneer Hot Garlic Sauce ,Rs.115
+Rasna Paneer Chilli ,Rs.105
+Rasna Paneer Chilli ,Rs.105
+Paneer Chilli Classic ,Rs.115
+Paneer Hot Garlic Sauce ,Rs.115
+Paneer Manchurian ,Rs.135
+Mughlai Main Course  ,
+Mughlai Plain ,Rs.55
+Mughlai Double Egg ,Rs.65
+Mughlai Egg Chicken ,Rs.95
+Starter  ,
+Egg Roll ,Rs.25
+Paneer Chilli Roll ,Rs.45
+Chilli Chicken Roll ,Rs.45
+Egg Chilli Chicken Roll ,Rs.55
+Roti Main Course  ,
+Tandoori Roti (3 pc) ,Rs.13
+Butter Tandoori Roti (3 pc) ,Rs.18
+Plain Naan (3 pc) ,Rs.33
+Butter Naan (3 pc) ,Rs.38
+Masala Naan (3 pc) ,Rs.48
+Paneer Naan (3 pc) ,Rs.58
+Kima Naan (3 pc) ,Rs.68
+Plain Kulcha (3 pc) ,Rs.38
+Masala Kulcha (3 pc) ,Rs.43
+Lachha Paratha (3 pc) ,Rs.23
+Aloo Paratha (3 pc) ,Rs.28
+Biryani Main Course  ,
+Veg Biryani ,Rs.105
+Paneer Biryani ,Rs.115
+Chicken Biryani (F) (1 pc) ,Rs.125
+Mutton Biryani (2 pc) ,Rs.165
+Rice Main Course  ,
+Veg Pulao ,Rs.125
+Paneer Pulao ,Rs.135
+Mushroom Main Course  ,
+Chilli Mushroom ,Rs.145
+Mushroom Munchurian ,Rs.155
+Mushroom Masala ,Rs.125
+Mushroom Do Pyaza ,Rs.145
+Paneer Starter  ,
+Paneer Pakora (8 pc) ,Rs.110
+Paneer Finger (8 pc) ,Rs.130
+Paneer Pops ,Rs.150
+Egg Starter  ,
+Egg Pakora (8 pc) ,Rs.70
+Chow Main Course  ,
+Veg Chow Mein (Hakka) ,Rs.55
+Veg Chow Mein (Gravy) ,Rs.70
+Egg Chow Mein (Hakka) ,Rs.65
+Egg Chow Mein (Gravy) ,Rs.80
+Chicken Chow Mein (Hakka) ,Rs.95
+Chicken Chow Mein (Gravy) ,Rs.110
+Mixed Chow Mein (Hakka) ,Rs.135
+Mixed Chow Mein (Gravy) ,Rs.150
+Chop Suey (Veg) ,Rs.95
+Chop Suey (American) ,Rs.165
+,
+,
+,

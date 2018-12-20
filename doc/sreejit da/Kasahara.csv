@@ -1,0 +1,183 @@
+Item,Rate
+Breakfast,
+Pan Cake with Butter,Rs.55
+Pan Cake with Jam,Rs.55
+Pan Cake with Honey,Rs.65
+Chocolate Pan Cake,Rs.65
+Puri-Sabzi (4 pc),Rs.30
+French Toast,Rs.45
+Dry Toast,Rs.15
+Bread Toast with Butter,Rs.20
+Bread Toast with Jam,Rs.25
+Egg Boiled,Rs.10
+Egg Scrambled,Rs.30
+Egg Poached,Rs.20
+Egg Omelette,Rs.15
+Spanish Omelette,Rs.50
+Spanish Omelette with Cheese,Rs.60
+Tomato Masala Omelette,Rs.50
+Tomato Masala Omelette & Cheese,Rs.60
+Mushroom Omelette with Cheese,Rs.70
+Mushroom Omelette,Rs.60
+Sandwich Veg,Rs.25
+Sandwich Egg,Rs.30
+Sandwich Cheese,Rs.35
+Sandwich Chicken,Rs.45
+Sandwich Chicken & Cheese,Rs.60
+Sandwich Double Cheese & Tomato,Rs.60
+Sandwich Mashed Potato Filling,Rs.30
+Garlic Bread,Rs.40
+Chicken Starter,
+Bread With Chicken Stew,Rs.70
+Chicken Clear Soup,Rs.45
+Sweet Corn Chicken Soup,Rs.65
+Baby Corn Chicken Soup,Rs.65
+Hot & Sour Soup (Chicken),Rs.65
+Chicken Noodles Soup,Rs.55
+Veg Chicken Noodle Soup,Rs.65
+Chicken Pakora (8 pc),Rs.125
+Crispy Chicken,Rs.125
+Chicken Oil Fry,Rs.145
+Chicken Roll,Rs.40
+Egg Chicken Roll,Rs.45
+Veg Starter,
+Sweet Corn Veg Soup,Rs.50
+Baby Corn Veg Soup,Rs.55
+Hot & Sour Veg Soup,Rs.55
+Veg Noodle Soup,Rs.45
+Veg Pakora (8 pc),Rs.65
+Onion Pakora (8 pc),Rs.65
+Finger Chips,Rs.55
+Fried Baby Corn,Rs.75
+Crispy Baby Corn,Rs.95
+Veg Roll,Rs.25
+Mushroom Starter,
+Mushroom Pakora (8 pc),Rs.125
+Mushroom Roll,Rs.50
+Paneer Starter,
+Paneer Pakora (8 pc),Rs.125
+Paneer Roll,Rs.45
+Egg Starter,
+Egg Pakora (8 pc),Rs.65
+Egg Roll,Rs.30
+Double Egg Roll,Rs.35
+Roti Main Course,
+Plain Roti (1 pc),Rs.5
+Rumali Roti (1 pc),Rs.15
+Plain Paratha,Rs.20
+Aloo Paratha,Rs.25
+Lachha Paratha,Rs.30
+Egg Paratha,Rs.35
+Paneer Paratha,Rs.45
+Chow Main Course,
+Veg Chow Mein (H),Rs.50
+Veg Chow Mein (F),Rs.75
+Egg Chow Mein (H),Rs.55
+Egg Chow Mein (F),Rs.85
+Chicken Chow Mein (H),Rs.65
+Chicken Chow Mein (F),Rs.105
+Mixed Chow Mein (H),Rs.75
+Mixed Chow Mein (F),Rs.125
+Gravy Veg Chow Mein (H),Rs.60
+Gravy Veg Chow Mein (F),Rs.100
+Gravy Egg Chow Mein (H),Rs.65
+Gravy Egg Chow Mein (F),Rs.110
+Gravy Chicken Chow Mein (H),Rs.75
+Gravy Chicken Chow Mein (F),Rs.130
+Gravy Mixed Chow Mein (H),Rs.85
+Gravy Mixed Chow Mein (F),Rs.150
+Rice Main Course,
+Veg Fried Rice (H),Rs.50
+Veg Fried Rice (F),Rs.75
+Egg Fried Rice (H),Rs.55
+Egg Fried Rice (F),Rs.85
+Chicken Fried Rice (H),Rs.65
+Chicken Fried Rice (F),Rs.105
+Mixed Fried Rice (H),Rs.75
+Mixed Fried Rice (F),Rs.125
+Jeera Rice (H),Rs.50
+Jeera Rice (F),Rs.75
+Plain Rice (H),Rs.25
+Plain Rice (F),Rs.35
+Biryani Main Course,
+Veg Biryani (H),Rs.65
+Veg Biryani (F),Rs.105
+Egg Biryani (H),Rs.75
+Egg Biryani (F),Rs.125
+Chicken Biryani (H),Rs.95
+Chicken Biryani (F),Rs.155
+Mutton Biryani (H),Rs.125
+Mutton Biryani (F),Rs.205
+Veg Main Course,
+Aloo Dum (H),Rs.45
+Aloo Dum (F),Rs.75
+Kashmiri Aloo Dum (H),Rs.65
+Kashmiri Aloo Dum (F),Rs.105
+Mixed Veg (H),Rs.45
+Mixed Veg (F),Rs.75
+Veg Manchurian (H),Rs.75
+Veg Manchurian (F),Rs.125
+Chilli Baby Corn (H),Rs.85
+Chilli Baby Corn (F),Rs.145
+Veg Thali,Rs.100
+Dal,Rs.30
+Dal Fry,Rs.45
+Sabji,Rs.35
+Mushroom Main Course,
+Chilli Mushroom (H),Rs.90
+Chilli Mushroom (F),Rs.155
+Paneer Main Course,
+Chilli Paneer (H),Rs.95
+Chilli Paneer (F),Rs.165
+Paneer Jhal Pyaza (H),Rs.75
+Paneer Jhal Pyaza (F),Rs.125
+Paneer Do Pyaza (H),Rs.85
+Paneer Do Pyaza (F),Rs.145
+Paneer Butter Masala (H),Rs.95
+Paneer Butter Masala (F),Rs.165
+Chicken Main Course,
+Chicken Curry (2 pc),Rs.75
+Chicken Curry (4 pc),Rs.125
+Chicken Kasa (2 pc),Rs.85
+Chicken Kasa (4 pc),Rs.145
+Chicken Masala (2 pc),Rs.90
+Chicken Masala (4 pc),Rs.155
+Chicken Bharta (H),Rs.85
+Chicken Bharta (F),Rs.145
+Chicken Do Pyaza (2 pc),Rs.85
+Chicken Do Pyaza (4 pc),Rs.145
+Kadai Chicken (4 pc),Rs.85
+Kadai Chicken (8 pc),Rs.145
+Chicken Butter Masala (2 pc),Rs.95
+Chicken Butter Masala (4 pc),Rs.165
+Lemon Chicken (4 pc),Rs.95
+Lemon Chicken (8 pc),Rs.165
+Chilli Chicken (4 pc),Rs.95
+Chilli Chicken (8 pc),Rs.165
+Garlic Chicken (4 pc),Rs.95
+Garlic Chicken (8 pc),Rs.165
+Chicken Manchurian (4 pc),Rs.95
+Chicken Manchurian (8 pc),Rs.165
+Chicken Thali (Chicken-3 pc),Rs.175
+Egg Main Course,
+Egg Thali (Egg-2 pc),Rs.125
+Egg Curry (1 pc),Rs.25
+Egg Curry (2 pc),Rs.45
+Fish Main Course,
+Fish Thali (Fish-1 pc),Rs.145
+Fish Curry (1 pc),Rs.55
+Fish Curry (2 pc),Rs.105
+Mutton Main Course,
+Mutton Thali (Mutton-2 pc) (Aloo-1 pc),Rs.225
+Mutton Curry (2 pc),Rs.135
+Mutton Curry (4 pc),Rs.225
+Mutton Kasa (2 pc),Rs.155
+Mutton Kasa (4 pc),Rs.255
+Accompaniment,
+Aloo Vaja,Rs.10
+Papad,Rs.5
+Salad,Rs.35
+Sour Curd,Rs.15
+Raita (Veg),Rs.30
+Shak,Rs.10
+Ghee,Rs.15

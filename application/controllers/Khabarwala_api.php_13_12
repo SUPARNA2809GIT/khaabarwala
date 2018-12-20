@@ -1,0 +1,661 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Khabarwala_api extends CI_Controller {
+
+    public function __construct() 
+    {
+		parent::__construct();
+		$this->load->helper(array('url','form','html','text'));
+		$this->load->library(array('session','form_validation','pagination','email'));
+		$this->load->model(array('common_model'));
+		$this->load->model(array('Common_mdl'));
+	}
+    public function getBanner()
+    {
+        $banners = $this->db->query("SELECT * FROM tb_banner WHERE published=1")->result();
+        header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('banners' => $banners));
+    }
+    public function getRestaurents()
+    {
+       
+        $restaurents = $this->db->query("SELECT * FROM tb_restaurant WHERE published=1 LIMIT 5" )->result();
+        $allRes = array();
+        
+        foreach ($restaurents as $res) {
+
+            $menus = $this->db->query("SELECT * FROM tb_menu WHERE published=1 AND res_id=".$res->res_id." LIMIT 20" )->result();
+            $strMenu = '';
+            foreach ($menus as $menu) {
+                $strMenu.=$menu->menu_name.',';
+            }
+
+
+            // 5 star - 252
+			// 4 star - 124
+			// 3 star - 40
+			// 2 star - 29
+			// 1 star - 33
+			// (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
+
+
+			$rattings = $this->db->query("SELECT DISTINCT(rate) FROM tb_ratting WHERE res_id=".$res->res_id)->result();
+
+			//print_r($rattings); die;
+			$totRate = '';
+			$dividedBy = '';
+			$finalRate = '';
+
+			if(!empty($rattings))
+			{
+
+				foreach($rattings as $rates){
+				
+					$star = $rates->rate;
+					$count = $this->db->query("SELECT * FROM tb_ratting WHERE res_id=".$res->res_id." AND rate=".$rates->rate)->num_rows();
+
+					$totRate+=$star*$count;
+					$dividedBy+=$count; 
+
+
+				}
+
+				$finalRate = ($totRate/$dividedBy);
+
+				$finalRate = number_format((float)$finalRate, 1, '.', '');
+
+			}
+			
+
+            $allRes[] = array("res"=>$res,"menu"=>rtrim($strMenu,','),"ratting"=>$finalRate);
+
+        }
+
+  		
+
+
+        header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('restaurents' => $allRes));
+    }
+    public function getRestaurentDetails()
+    {
+        
+        $res_id = $this->input->post('resId');
+
+        $restaurents = $this->db->query("SELECT * FROM tb_restaurant WHERE res_id=".$res_id)->result();
+        
+        $cuisines = $this->db->query("SELECT * FROM tb_cuisine WHERE res_id=".$res_id)->result();
+
+        $allCuisines=array();
+
+        if(!empty($cuisines))
+        {
+        	foreach ($cuisines as $cuisine) {
+
+	        	$menus = $this->db->query("SELECT * FROM tb_menu WHERE res_id=".$res_id." AND cuisine_id=".$cuisine->cuisine_id)->result();
+
+	        	$allCuisines[] = array("cuisines"=>$cuisine->cuisine_name,"menu"=>$menus);
+
+	        }
+        }
+
+		$rattings = $this->db->query("SELECT DISTINCT(rate) FROM tb_ratting WHERE res_id=".$res_id)->result();
+
+		$totRate = '';
+		$dividedBy = '';
+		$finalRate = '';
+
+		if(!empty($rattings))
+		{
+
+			foreach($rattings as $rates)
+			{
+			
+				$star = $rates->rate;
+				$count = $this->db->query("SELECT * FROM tb_ratting WHERE res_id=".$res_id." AND rate=".$rates->rate)->num_rows();
+				$totRate+=$star*$count;
+				$dividedBy+=$count;
+			}
+
+			$finalRate = ($totRate/$dividedBy);
+
+		}
+		
+
+        $allRes[] = array("restaurents"=>$restaurents,"allCuisines"=>$allCuisines,"ratting"=>round($finalRate,1));
+
+        header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('restaurents' => $allRes));
+    }
+    public function getResLazyLoad()
+    {
+    	$limit = 5;
+    	$offset = $this->input->post('restaurentCount');
+    	$restaurents = $this->db->query("SELECT * FROM tb_restaurant LIMIT ".$limit." OFFSET ".$offset)->result();
+        $allRes = array();        
+        foreach ($restaurents as $res) {
+            $menus = $this->db->query("SELECT * FROM tb_menu WHERE published=1 AND res_id=".$res->res_id." LIMIT 20" )->result();
+            $strMenu = '';
+            foreach ($menus as $menu) {
+                $strMenu.=$menu->menu_name.',';
+            }
+            // 5 star - 252
+			// 4 star - 124
+			// 3 star - 40
+			// 2 star - 29
+			// 1 star - 33
+			// (5*252 + 4*124 + 3*40 + 2*29 + 1*33) / (252+124+40+29+33) = 4.11 and change
+			$rattings = $this->db->query("SELECT DISTINCT(rate) FROM tb_ratting WHERE res_id=".$res->res_id)->result();
+			//print_r($rattings); die;
+			$totRate = '';
+			$dividedBy = '';
+			$finalRate = '';
+			if(!empty($rattings))
+			{
+				foreach($rattings as $rates){				
+					$star = $rates->rate;
+					$count = $this->db->query("SELECT * FROM tb_ratting WHERE res_id=".$res->res_id." AND rate=".$rates->rate)->num_rows();
+
+					$totRate+=$star*$count;
+					$dividedBy+=$count; 
+				}
+				$finalRate = ($totRate/$dividedBy);
+			}
+            $allRes[] = array("res"=>$res,"menu"=>rtrim($strMenu,','),"ratting"=>round($finalRate,1));
+        }
+        header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('restaurents' => $allRes));
+    }	
+	function ticker()
+	{
+		$tickerDetails = $this->db->query("select * from tb_ticker where published=1")->result();
+		header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('tickerDetails' => $tickerDetails));	
+	}
+	function add_cart()
+	{
+		$restaurant = $this->input->post('restaurant');
+		$menu = $this->input->post('menu');
+		$qty = $this->input->post('qty');
+		$deviceId = $this->input->post('deviceId');		
+		
+		$menuDetail = $this->db->query("select * from tb_menu where menu_id='$menu'")->row();
+		$res_id = $menuDetail->res_id;
+			
+		$restaurantDetail = $this->db->query("select * from tb_restaurant where res_id='$res_id'")->row();		
+		$res_gst = $restaurantDetail->gst_amount;
+			
+		$total_price = ($menuDetail->menu_price*$qty); //200
+		$gst_amount = ($total_price*$res_gst)/100; //10
+		$amount_w_gst = $total_price+$gst_amount;
+			
+		$cartCheck = $this->db->query("select * from tb_cart where device_id='$deviceId'")->row();
+			
+		if($cartCheck)
+		{
+			$getRestaurant = $cartCheck->restaurant_id; //1
+			$getMenu = $cartCheck->menu_id; //1
+			if($getRestaurant==$restaurant)
+			{
+				$menuCheck = $this->db->query("select * from tb_cart where device_id='$deviceId' and restaurant_id='$restaurant' and menu_id='$menu'")->row();
+				if($menuCheck) //4==4
+				{
+					$cart_id = $menuCheck->cart_id;
+					if($qty>0)
+					{
+							
+							$fields = array(
+								'quantity' => $qty,
+								'price' => $menuDetail->menu_price,
+								'total_price' => $total_price,
+								'gst_amount' => $gst_amount,
+								'amount_w_gst' => $amount_w_gst,
+								'created_time' => date('h:i a'),
+								'created_date' => date('Y-m-d')
+								);
+							$table['name'] = 'tb_cart';
+							$data = $this->Common_mdl->save_data($table,$fields,$cart_id,'cart_id');
+							$success = 1;
+					}
+					else
+					{
+						$table['name'] = 'tb_cart';
+						$this->Common_mdl->delete_data($table,$cart_id,'cart_id');
+						$success = 1;
+					}
+				}
+				else
+				{
+					$fields = array(
+					'device_id' => $deviceId,
+					'restaurant_id' => $restaurant,
+					'menu_id' => $menu,
+					'quantity' => $qty,
+					'price' => $menuDetail->menu_price,
+					'total_price' => $total_price,
+					'gst_amount' => $gst_amount,
+					'amount_w_gst' => $amount_w_gst,
+					'created_time' => date('h:i a'),
+					'created_date' => date('Y-m-d')
+					);
+					$table['name'] = 'tb_cart';
+					$data = $this->Common_mdl->save_data($table,$fields,'','cart_id');
+					$success = 1;	
+				}
+				
+			}
+			else
+			{
+				$success=0;
+				$cartCount =0;
+			}						
+		}
+		else
+		{
+				$fields = array(
+					'device_id' => $deviceId,
+					'restaurant_id' => $restaurant,
+					'menu_id' => $menu,
+					'quantity' => $qty,
+					'price' => $menuDetail->menu_price,
+					'total_price' => $total_price,
+					'gst_amount' => $gst_amount,
+					'amount_w_gst' => $amount_w_gst,
+					'created_time' => date('h:i a'),
+					'created_date' => date('Y-m-d')
+					);
+				$table['name'] = 'tb_cart';
+				$data = $this->Common_mdl->save_data($table,$fields,'','cart_id');
+				$success = 1;		
+		}				
+		
+		$cartCount = $this->db->query("select * from tb_cart where device_id='$deviceId'")->num_rows();
+		header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('success' => $success,'cartCount'=>$cartCount));
+	}	
+	function update_add_cart()
+	{
+		$restaurant = $this->input->post('restaurant');
+		$menu = $this->input->post('menu');
+		$qty = $this->input->post('qty');
+		$deviceId = $this->input->post('deviceId');
+		
+		$deletePreviousData = $this->db->query("DELETE FROM `tb_cart` WHERE `device_id`='$deviceId'");
+		
+		
+		$menuDetail = $this->db->query("select * from tb_menu where menu_id='$menu'")->row();
+		$res_id = $menuDetail->res_id;
+			
+		$restaurantDetail = $this->db->query("select * from tb_restaurant where res_id='$res_id'")->row();		
+		$res_gst = $restaurantDetail->gst_amount;
+			
+		$total_price = ($menuDetail->menu_price*$qty); //200
+		$gst_amount = ($total_price*$res_gst)/100; //10
+		$amount_w_gst = $total_price+$gst_amount;
+			
+		$cartCheck = $this->db->query("select * from tb_cart where device_id='$deviceId' and restaurant_id='$restaurant' and menu_id='$menu'")->row();
+			
+		if($cartCheck)
+		{
+				$cart_id = $cartCheck->cart_id;
+				if($qty>0)
+				{
+					
+					$fields = array(
+						'quantity' => $qty,
+						'price' => $menuDetail->menu_price,
+						'total_price' => $total_price,
+						'gst_amount' => $gst_amount,
+						'amount_w_gst' => $amount_w_gst,
+						'created_time' => date('h:i a'),
+						'created_date' => date('Y-m-d')
+						);
+					$table['name'] = 'tb_cart';
+					$data = $this->Common_mdl->save_data($table,$fields,$cart_id,'cart_id');
+				}
+				else
+				{
+					$table['name'] = 'tb_cart';
+					$this->Common_mdl->delete_data($table,$cart_id,'cart_id');
+				}			
+			}
+		else
+		{
+				$fields = array(
+					'device_id' => $deviceId,
+					'restaurant_id' => $restaurant,
+					'menu_id' => $menu,
+					'quantity' => $qty,
+					'price' => $menuDetail->menu_price,
+					'total_price' => $total_price,
+					'gst_amount' => $gst_amount,
+					'amount_w_gst' => $amount_w_gst,
+					'created_time' => date('h:i a'),
+					'created_date' => date('Y-m-d')
+					);
+				$table['name'] = 'tb_cart';
+				$data = $this->Common_mdl->save_data($table,$fields,'','cart_id');
+			}
+		$success = 1;		
+		
+		$cartCount = $this->db->query("select * from tb_cart where device_id='$deviceId'")->num_rows();
+		header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('success' => $success,'cartCount'=>$cartCount));
+	}	
+	function get_cart()
+	{
+		$cartContent = array();
+		$deviceId = $this->input->post('deviceId');
+		$fetchChecks = $this->db->query("select * from tb_cart where device_id='$deviceId'")->result();		
+		
+		if($fetchChecks)
+		{
+			foreach($fetchChecks as $fetchCheck)
+			{
+				$restaurant_detail = $this->db->query("select * from tb_restaurant where res_id='$fetchCheck->restaurant_id'")->row();
+				$menu_detail = $this->db->query("select * from tb_menu where menu_id='$fetchCheck->menu_id'")->row();
+									
+				$cartContent[] = array(
+									'restaurant_detail'=>$restaurant_detail,
+									'restaurant_name'=>$restaurant_detail->res_name,
+									'menu_detail'=>$menu_detail,
+									'menu_name'=>$menu_detail->menu_name,
+									'quantity'=>$fetchCheck->quantity,
+									'price'=>$fetchCheck->price
+									);
+			}
+		}
+		$cartCount = $this->db->query("select * from tb_cart where device_id='$deviceId'")->num_rows();
+		$item_total = $this->db->query("select sum(total_price) as total_price from tb_cart where device_id='$deviceId'")->row();
+		$gst_total = $this->db->query("select sum(gst_amount) as gst_amount from tb_cart where device_id='$deviceId'")->row();
+		$grand_total = $this->db->query("select sum(amount_w_gst) as amount_w_gst from tb_cart where device_id='$deviceId'")->row();
+				
+		header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('success' => 1,'cartCount'=>$cartCount,'cartContent'=>$cartContent,'item_total'=>$item_total->total_price,'gst_total'=>$gst_total->gst_amount,'grand_total'=>$grand_total->amount_w_gst));		
+	}	
+	function doLogin()
+	{
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$checkLogin = $this->db->query("select * from tb_user where password='$password' and (email='$username' or mobile='$username')")->row();
+		
+		header('Access-Control-Allow-Origin: *');
+		if($checkLogin)
+		{			
+        	echo json_encode(array('status' => 1,'userid' => $checkLogin->user_id));	
+		}
+		else
+		{
+			echo json_encode(array('status' => 0));
+		}
+	}	
+	function doSignup()
+	{
+		$device_id = $this->input->post('deviceid');
+		$name = $this->input->post('name');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		$mobile = $this->input->post('mobile');
+		$address = $this->input->post('address');
+		$pin = $this->input->post('pin');
+		$landmark = $this->input->post('landmark');
+		
+		$checkEmailMobile = $this->db->query("select * from tb_user where email='$email' or mobile='$mobile'")->row();
+		
+		if($checkEmailMobile)
+		{
+			$success=0;
+		}
+		else
+		{
+			$fields = array(
+					'device_id' => $device_id,
+					'name' => $name,
+					'email' => $email,
+					'password' => $password,
+					'mobile' => $mobile,
+					'address' => $address,
+					'pin' => $pin,
+					'landmark' => $landmark,
+					'created_time' => date('h:i a'),
+					'created_date' => date('Y-m-d')
+					);
+			$table['name'] = 'tb_user';
+			$data = $this->Common_mdl->save_data($table,$fields,'','user_id');
+			$success=1;
+			$user_id = $this->db->insert_id();
+		}
+		header('Access-Control-Allow-Origin: *');
+		echo json_encode(array('status' => $success,'userid' => $user_id));
+		
+	}	
+	function place_order()
+	{
+		$orderContent= array();
+		
+		$deviceId = $this->input->post('deviceid');
+		$shipping_address = $this->input->post('address');
+		$user_id = $this->input->post('userid');
+		
+		$cartCounts = $this->db->query("select * from tb_cart where device_id='$deviceId'")->result();
+		$item_total = $this->db->query("select sum(total_price) as total_price from tb_cart where device_id='$deviceId'")->row();
+		$gst_total = $this->db->query("select sum(gst_amount) as gst_amount from tb_cart where device_id='$deviceId'")->row();
+		$grand_total = $this->db->query("select sum(amount_w_gst) as amount_w_gst from tb_cart where device_id='$deviceId'")->row();
+		
+		/* next invoice number */
+		$last_bill_no = $this->db->query("select * from tb_order order by order_id desc limit 1")->row();
+		if($last_bill_no)
+		{
+			$sl_no = $last_bill_no->sl_no;
+			$next_sl_no = str_pad($sl_no,2,0,STR_PAD_LEFT);
+			$order_gen_id = "KHB".$next_sl_no;
+		}
+		else
+		{
+			$next_sl_no = str_pad(1,2,0,STR_PAD_LEFT);
+			$order_gen_id = "KHB".$next_sl_no;	
+		}
+		/* next invoice number */	
+		
+		$fields = array(
+					'order_gen_id' => $order_gen_id,
+					'sl_no' => $next_sl_no,
+					'user_id' => $user_id,
+					'order_date' => date('Y-m-d'),
+					'order_time' => date('h:i a'),
+					'order_amount' => $item_total->total_price,
+					'gst_amount' => $gst_total->gst_amount,
+					'sub_total' => $grand_total->amount_w_gst,
+					'shipping_address' => $shipping_address
+					);
+		$table['name'] = 'tb_order';
+		$data = $this->Common_mdl->save_data($table,$fields,'','order_id');
+		$order_id = $this->db->insert_id();
+		
+		if($cartCounts)
+		{
+			foreach($cartCounts as $cartCount)
+			{
+				$fields = array(
+					'order_id' => $order_id,
+					'res_id' => $cartCount->restaurant_id,
+					'menu_id' => $cartCount->menu_id,
+					'quantity' => $cartCount->quantity,
+					'price' => $cartCount->price,
+					'subtotal' => $cartCount->total_price,
+					'created_date' => date('Y-m-d'),
+					'created_time' => date('h:i a')
+					);
+				$table['name'] = 'tb_order_menu';
+				$data = $this->Common_mdl->save_data($table,$fields,'','order_menu_id');
+			}
+		}
+		
+		$fetchorders = $this->db->query("select * from tb_order where order_id='$order_id'")->row();
+		$fetchOrderDetails = $this->db->query("select * from tb_order_menu where order_id='$order_id'")->result();			
+		if($fetchOrderDetails)
+		{
+			foreach($fetchOrderDetails as $fetchOrderDetail)
+			{
+				$restaurant_detail = $this->db->query("select * from tb_restaurant where res_id='$fetchOrderDetail->res_id'")->row();
+				$menu_detail = $this->db->query("select * from tb_menu where menu_id='$fetchOrderDetail->menu_id'")->row();
+									
+				$orderContent[] = array(
+									'restaurant_detail'=>$restaurant_detail,
+									'restaurant_name'=>$restaurant_detail->res_name,
+									'menu_detail'=>$menu_detail,
+									'menu_name'=>$menu_detail->menu_name,
+									'quantity'=>$fetchOrderDetail->quantity,
+									'price'=>$fetchOrderDetail->price,
+									'subtotal'=>$fetchOrderDetail->subtotal,
+									'orederGenId' => $fetchorders->order_gen_id
+									);
+			}
+		}
+		
+		$order_detail = $this->db->query("select * from tb_order where order_id='$order_id'")->row();
+		$gst_total = $this->db->query("select gst_amount from tb_order where order_id='$order_id'")->row();
+		$grand_total = $this->db->query("select sub_total from tb_order where order_id='$order_id'")->row();
+		
+		$deleteCart = $this->db->query("DELETE FROM `tb_cart` WHERE `device_id`='$deviceId'");
+		
+		$allOrderValueInString = array(
+										'fetchorders'=>$fetchorders,
+										'orderContent'=>$orderContent,
+										'item_total'=>$order_detail->order_amount,
+										'gst_total'=>$order_detail->gst_amount,
+										'grand_total'=>$order_detail->sub_total
+										);
+		
+		header('Access-Control-Allow-Origin: *');
+		echo json_encode(array('status' => 1,'allOrderValueInString'=>$allOrderValueInString));
+	}	
+	function changePassword()
+	{
+		$email = $this->input->post('email');
+		$checkEmail = $this->db->query("select * from tb_user where email='$email'")->row();
+		if($checkEmailMobile)
+		{
+			$success=0;
+		}
+		else
+		{
+			$to = $checkEmail->email;
+			$subject="Khabarwala Credentials";
+			$message = '<table align="center" width="700" style="border:outset #B1F05E;">
+						  <tr>
+							<td style="font-family:Arial, Helvetica, sans-serif; font-size:14px; text-align:left; padding:10px;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#666666; font-weight:normal;  width:150px;">Dear '.$checkEmail->name.', Your password is .'.$checkEmail->password.'</span></td>
+						  </tr>
+						</table>';
+			$headers = "From: ".$to."\r\nReply-To: ".$to."";
+			$headers .= "\r\nMIME-Version: 1.0\r\nContent-Type: text/html; charset=iso-8859-1";
+			// mail($to, $subject, $message, $headers);
+			$this->Common_model->sendemail($to,$subject,$message);
+		}
+		header('Access-Control-Allow-Origin: *');
+		echo json_encode(array('status' => $success));
+	}
+	public function sendemail($to, $subject, $mailBody)
+	{
+		$config = array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'mail.bolpurkhabarwala.com',
+			'smtp_port' => 2079,
+			'smtp_user' => 'no-reply@bolpurkhabarwala.com',
+			'smtp_pass' => 'qwerty005',
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1'
+		);
+		$this->load->library('email', $config);
+
+		$this->email->from('no-reply@bolpurkhabarwala.com', 'khabarwala');
+		$this->email->to($to);
+		$this->email->subject($subject);
+		$this->email->message($mailBody);
+		$this->email->set_mailtype("html");
+		$this->email->send();
+	}	
+	function get_user_details()
+	{
+		$user_id = $this->input->post('userid');
+		$userDetails = $this->db->query("select * from tb_user where user_id='$user_id'")->row();		
+		$fetchorders = $this->db->query("select * from tb_order where user_id='$user_id'")->result();
+		
+		header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('success' => 1,'userDetails'=>$userDetails,'fetchorders'=>$fetchorders));		
+	}
+	function order_details()
+	{
+		$orderContent= array();
+		$order_id = $this->input->post('order_id');
+		$fetchorders = $this->db->query("select * from tb_order where order_id='$order_id'")->row();
+		
+		$fetchOrderDetails = $this->db->query("select * from tb_order_menu where order_id='$order_id'")->result();			
+		if($fetchOrderDetails)
+		{
+			foreach($fetchOrderDetails as $fetchOrderDetail)
+			{
+				$restaurant_detail = $this->db->query("select * from tb_restaurant where res_id='$fetchOrderDetail->res_id'")->row();
+				$menu_detail = $this->db->query("select * from tb_menu where menu_id='$fetchOrderDetail->menu_id'")->row();
+									
+				$orderContent[] = array(
+									'restaurant_detail'=>$restaurant_detail,
+									'restaurant_name'=>$restaurant_detail->res_name,
+									'menu_detail'=>$menu_detail,
+									'menu_name'=>$menu_detail->menu_name,
+									'quantity'=>$fetchOrderDetail->quantity,
+									'price'=>$fetchOrderDetail->price,
+									'subtotal'=>$fetchOrderDetail->subtotal,
+									'orederGenId' => $fetchorders->order_gen_id
+									);
+			}
+		}
+		
+		$order_detail = $this->db->query("select * from tb_order where order_id='$order_id'")->row();
+		$gst_total = $this->db->query("select gst_amount from tb_order where order_id='$order_id'")->row();
+		$grand_total = $this->db->query("select sub_total from tb_order where order_id='$order_id'")->row();
+		
+		header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('success' => 1,'fetchorders'=>$fetchorders,'orderContent'=>$orderContent,'item_total'=>$order_detail->order_amount,'gst_total'=>$order_detail->gst_amount,'grand_total'=>$order_detail->sub_total));
+	}	
+	function rateRestaurant()
+	{
+		$res_id = $this->input->post('res_id');
+		$user_id = $this->input->post('user_id');
+		$rate = $this->input->post('rate');
+		
+		$rateCheck = $this->db->query("select * from tb_ratting where res_id='$res_id' and user_id='$user_id'")->row();
+		if($rateCheck)
+		{
+			$rate_id = $rateCheck->rate_id;
+			$fields = array(
+					'rate' => $rate,
+					'created_date' => date('Y-m-d'),
+					'created_time' => date('h:i a')
+					);
+			$table['name'] = 'tb_ratting';
+			$data = $this->Common_mdl->save_data($table,$fields,$rate_id,'rate_id');
+		}
+		else
+		{
+			$fields = array(
+					'res_id' => $res_id,
+					'user_id' => $user_id,
+					'rate' => $rate,
+					'created_date' => date('Y-m-d'),
+					'created_time' => date('h:i a')
+					);
+			$table['name'] = 'tb_ratting';
+			$data = $this->Common_mdl->save_data($table,$fields,'','rate_id');
+		}
+
+
+		
+
+		header('Access-Control-Allow-Origin: *');
+        echo json_encode(array('success' => 1));
+		
+		
+	}
+}
